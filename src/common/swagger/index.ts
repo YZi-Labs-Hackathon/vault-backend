@@ -16,4 +16,5 @@ export const swaggerConfig = new DocumentBuilder()
     .addTag('Auth', 'APIs to authenticate and authorize users')
     .addTag('User', 'APIs to get information about the user')
     .addTag('Chain', 'APIs to create, manage chains supported by Hackathon Vault')
+    .addTag('Token', 'APIs to create, manage tokens supported by Hackathon Vault')
     .build();

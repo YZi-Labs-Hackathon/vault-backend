@@ -17,7 +17,7 @@ import { SharedModule } from './modules/shared/shared.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { UserModule } from './modules/user/user.module';
 import { ChainModule } from './modules/chain/chain.module';
-
+import { TokenModule } from './modules/token/token.module';
 @Module({
     imports: [
         CacheModule.register({
@@ -38,6 +38,7 @@ import { ChainModule } from './modules/chain/chain.module';
         AuthModule,
         UserModule,
         ChainModule,
+        TokenModule,
     ],
     controllers: [AppController],
     providers: [AppService],
