@@ -5,6 +5,7 @@ import { Expose } from 'class-transformer';
 import { BaseEntity } from '@app/modules/shared/common/base.entity';
 import { NetworkType, STATUS } from '@app/modules/shared/shared.constants';
 import { ChainType } from '@app/common/types';
+import { Vault } from '@app/modules/vault/entities/vault.entity';
 import { Token } from '@app/modules/token/entities/token.entity';
 
 export class NativeCurrency {
@@ -103,4 +104,7 @@ export class Chain extends BaseEntity {
 
     @OneToMany(() => Token, (token) => token.chain, { onDelete: 'CASCADE' })
     tokens: Token[];
+
+    @OneToMany(() => Vault, (vault) => vault.chain, { onDelete: 'CASCADE' })
+    vaults: Vault[];
 }

@@ -3,6 +3,7 @@ import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { Expose } from 'class-transformer';
 import { BaseEntity } from '@app/modules/shared/common/base.entity';
 import { PROTOCOL, STATUS } from '@app/modules/shared/shared.constants';
+import { Vault } from '@app/modules/vault/entities/vault.entity';
 import { Chain } from '@app/modules/chain/entities/chain.entity';
 import { ProtocolToken } from '@app/modules/protocol/entities/protocol-token.entity';
 
@@ -52,6 +53,9 @@ export class Token extends BaseEntity {
     @JoinColumn({ name: 'chain_id' })
     @ApiProperty({ type: () => Chain, description: 'The chain of the token' })
     chain: Chain;
+
+    @OneToMany(() => Vault, (vault) => vault.token, { onDelete: 'CASCADE' })
+    vaults: Vault[];
 
     @OneToMany(() => ProtocolToken, (protocolToken) => protocolToken.token, { onDelete: 'CASCADE' })
     protocolTokens: ProtocolToken[];

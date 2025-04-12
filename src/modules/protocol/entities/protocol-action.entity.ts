@@ -5,6 +5,7 @@ import { STATUS } from '@app/modules/shared/shared.constants';
 import { Protocol } from '@app/modules/protocol/entities/protocol.entity';
 import { Action } from '@app/modules/protocol/entities/action.entity';
 import { IsOptional } from 'class-validator';
+import { VaultAction } from '@app/modules/vault/entities/vault-action.entity';
 
 export class VenusStakingMetadata {
     @ApiPropertyOptional({ type: String, description: 'The address of the Venus staking' })
@@ -73,4 +74,7 @@ export class ProtocolAction extends BaseEntity {
     @ManyToOne(() => Action, (action) => action.protocolActions, { onDelete: 'CASCADE' })
     @JoinColumn({ name: 'action_id' })
     action: Action;
+
+    @OneToMany(() => VaultAction, (vaultAction) => vaultAction.protocolAction, { onDelete: 'CASCADE' })
+    vaultActions: VaultAction[];
 }

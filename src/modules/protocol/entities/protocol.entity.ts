@@ -6,6 +6,8 @@ import { STATUS } from '@app/modules/shared/shared.constants';
 import { Action } from '@app/modules/protocol/entities/action.entity';
 import { Expose } from 'class-transformer';
 import { PROTOCOL_SERVICE } from '@app/modules/protocol/protocol.type';
+import { VaultProtocol } from '@app/modules/vault/entities/vault-protocol.entity';
+import { Vault } from '@app/modules/vault/entities/vault.entity';
 import { ProtocolToken } from './protocol-token.entity';
 
 @Entity()
@@ -71,6 +73,12 @@ export class Protocol extends BaseEntity {
 
     @OneToMany(() => ProtocolAction, (protocolAction) => protocolAction.protocol, { onDelete: 'CASCADE' })
     protocolActions: ProtocolAction[];
+
+    @OneToMany(() => VaultProtocol, (vaultProtocol) => vaultProtocol.protocol, { onDelete: 'CASCADE' })
+    vaultProtocols: VaultProtocol[];
+
+    @OneToMany(() => Vault, (vault) => vault.protocol, { onDelete: 'CASCADE' })
+    vaults: Vault[];
 
     @ApiPropertyOptional({ type: () => Action, isArray: true, description: 'The actions of the protocols' })
     actions?: Action[];
