@@ -18,6 +18,7 @@ import { AuthModule } from './modules/auth/auth.module';
 import { UserModule } from './modules/user/user.module';
 import { ChainModule } from './modules/chain/chain.module';
 import { TokenModule } from './modules/token/token.module';
+import { ProtocolModule } from './modules/protocol/protocol.module';
 @Module({
     imports: [
         CacheModule.register({
@@ -39,6 +40,7 @@ import { TokenModule } from './modules/token/token.module';
         UserModule,
         ChainModule,
         TokenModule,
+        ProtocolModule,
     ],
     controllers: [AppController],
     providers: [AppService],
