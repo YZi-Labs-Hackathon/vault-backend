@@ -3,6 +3,11 @@ import { ConfigModule } from '@nestjs/config';
 import { ScheduleModule } from '@nestjs/schedule';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { TypeOrmConfigService } from './database/database.service';
+import { VaultModule } from '@app/modules/vault/vault.module';
+import { ProtocolModule } from '@app/modules/protocol/protocol.module';
+import { UserModule } from '@app/modules/user/user.module';
+import { AuthModule } from '@app/modules/auth/auth.module';
+import { SharedModule } from '@app/modules/shared/shared.module';
 import { CacheModule } from '@nestjs/cache-manager';
 import { HttpModule } from '@nestjs/axios';
 import { TerminusModule } from '@nestjs/terminus';
@@ -12,14 +17,10 @@ import { BullConfigService } from '@app/common/helpers/bull.config.service';
 import { BullModule } from '@nestjs/bull';
 import { AppController } from '@app/app.controller';
 import { AppService } from '@app/app.service';
-import * as configs from '@app/config';
-import { AuthModule } from './modules/auth/auth.module';
-import { UserModule } from './modules/user/user.module';
 import { ChainModule } from './modules/chain/chain.module';
 import { TokenModule } from './modules/token/token.module';
-import { ProtocolModule } from './modules/protocol/protocol.module';
-import { SharedModule } from './modules/shared/shared.module';
-import { VaultModule } from './modules/vault/vault.module';
+import * as configs from '@app/config';
+
 @Module({
     imports: [
         CacheModule.register({
@@ -38,11 +39,11 @@ import { VaultModule } from './modules/vault/vault.module';
         BullModule.forRootAsync({ useClass: BullConfigService }),
         SharedModule,
         AuthModule,
+        VaultModule,
+        ProtocolModule,
         UserModule,
         ChainModule,
         TokenModule,
-        ProtocolModule,
-        VaultModule,
     ],
     controllers: [AppController],
     providers: [AppService],

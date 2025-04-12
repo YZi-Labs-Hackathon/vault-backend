@@ -6,6 +6,7 @@ import { VaultActivity } from '@app/modules/vault/entities/vault-activity.entity
 import { VaultTransaction } from '@app/modules/vault/entities/vault-transaction.entity';
 import { VaultService } from '@app/modules/vault/services/vault.service';
 import { VaultActivityService } from '@app/modules/vault/services/vault-activity.service';
+import { VaultActivityController } from '@app/modules/vault/controllers/vault-activity.controller';
 import { VaultAction } from '@app/modules/vault/entities/vault-action.entity';
 import { VaultDepositor } from '@app/modules/vault/entities/vault-depositor.entity';
 import { VaultDepositorController } from '@app/modules/vault/controllers/vault-depositor.controller';
@@ -24,6 +25,9 @@ import { VaultProtocol } from '@app/modules/vault/entities/vault-protocol.entity
 import { VaultEvmService } from '@app/modules/vault/services/contracts/vault-evm.service';
 import { VaultSolService } from '@app/modules/vault/services/contracts/vault-sol.service';
 import { VaultBaseService } from './services/contracts/vault-base.service';
+import { VaultActionController } from './controllers/vault-action.controller';
+import { VAULT_PROCESSOR } from './vault.constants';
+import { BullModule } from '@nestjs/bull';
 
 @Module({
     imports: [
@@ -34,7 +38,7 @@ import { VaultBaseService } from './services/contracts/vault-base.service';
         TokenModule,
         ProtocolModule,
     ],
-    controllers: [VaultDepositorController, VaultController],
+    controllers: [VaultActivityController, VaultDepositorController, VaultActionController, VaultController],
     providers: [
         VaultService,
         VaultActivityService,

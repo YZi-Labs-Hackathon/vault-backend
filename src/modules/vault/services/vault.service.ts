@@ -27,6 +27,7 @@ import { ChainService } from '@app/modules/chain/services/chain.service';
 import { TokenService } from '@app/modules/token/services/token.service';
 import { CreateVaultData } from '@app/modules/vault/vault.types';
 import { VaultContractService } from '@app/modules/vault/services/contracts/vault-contract.service';
+import { VaultValidatorService } from '@app/modules/shared/services/vault-validator.service';
 import { ProtocolService } from '@app/modules/protocol/services/protocol.service';
 import { PROTOCOL_SERVICE } from '@app/modules/protocol/protocol.type';
 import { FilterVaultProtocolDto } from '@app/modules/vault/dto/filter-vault-protocol.dto';
@@ -47,7 +48,6 @@ import { InjectQueue } from '@nestjs/bull';
 import { Queue } from 'bull';
 import { ChartDataPoint } from '@app/common/utils';
 import { uuid } from 'uuidv4';
-import { VaultValidatorService } from '@app/modules/shared/services/vault-validator.service';
 
 @Injectable()
 export class VaultService extends CommonService<Vault> {
@@ -71,6 +71,7 @@ export class VaultService extends CommonService<Vault> {
         private readonly vaultValidatorService: VaultValidatorService,
         private readonly protocolService: ProtocolService,
         @Inject(forwardRef(() => VaultProtocolService)) private readonly vaultProtocolService: VaultProtocolService,
+        private readonly VaultValidatorService: VaultValidatorService,
         private readonly actionService: ActionService,
         @Inject(forwardRef(() => VaultActivityService)) private readonly vaultActivityService: VaultActivityService,
         @Inject(CACHE_MANAGER) private cacheManager: Cache
@@ -712,26 +713,6 @@ export class VaultService extends CommonService<Vault> {
         console.log(`signature validator`, res);
 
         return { signature: res.signature, vaultParam: res.vaultParam, vaultId: vault.id };
-    }
-
-    async createActionOnVault(user: UserVaultData, vaultId: string, payload: CreatorCreateVaultActionDto) {
-        const vault = await this.findOne({
-            where: {
-                id: vaultId,
-            },
-            relations: ['protocol'],
-        });
-        if (!vault) {
-            throw new CustomException('Vault not found', HttpStatus.BAD_REQUEST);
-        }
-        if (vault.creatorId != user.id) {
-            throw new CustomException(`You are not creator of this vault`, HttpStatus.UNAUTHORIZED);
-        }
-        const action = await this.actionService.findOneByWhere({ command: payload.command, status: STATUS.ACTIVE });
-        if (!action) {
-            throw new CustomException(`Action not found`, HttpStatus.BAD_REQUEST);
-        }
-        throw new CustomException(`Action not support`, HttpStatus.BAD_REQUEST);
     }
 
     async updateClaimTxId(vault: Vault, requestId: string, receiver: string, amount: string, txHash: string) {

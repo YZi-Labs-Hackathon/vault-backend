@@ -32,9 +32,9 @@ import { User } from '@app/modules/user/entities/user.entity';
 import { UserWithdrawData, VaultDepositData } from '@app/modules/vault/vault.types';
 import { UserService } from '@app/modules/user/services/user.service';
 import { ProtocolService } from '@app/modules/protocol/services/protocol.service';
+import { VaultValidatorService } from '@app/modules/shared/services/vault-validator.service';
 import { PROTOCOL_SERVICE } from '@app/modules/protocol/protocol.type';
 import { ProtocolFactoryService } from '@app/modules/vault/services/protocols/protocol.factory.service';
-import { VaultValidatorService } from '@app/modules/shared/services/vault-validator.service';
 
 @Injectable()
 export class VaultDepositorService extends CommonService<VaultDepositor> {
