@@ -20,6 +20,7 @@ import { AppService } from '@app/app.service';
 import { ChainModule } from './modules/chain/chain.module';
 import { TokenModule } from './modules/token/token.module';
 import * as configs from '@app/config';
+import { WebhookModule } from './modules/webhook/webhook.module';
 
 @Module({
     imports: [
@@ -44,6 +45,7 @@ import * as configs from '@app/config';
         UserModule,
         ChainModule,
         TokenModule,
+        WebhookModule,
     ],
     controllers: [AppController],
     providers: [AppService],

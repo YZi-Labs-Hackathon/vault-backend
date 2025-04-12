@@ -19,4 +19,5 @@ export const swaggerConfig = new DocumentBuilder()
     .addTag('Token', 'APIs to create, manage tokens supported by Hackathon Vault')
     .addTag('Protocol', 'APIs to get information about the protocols supported by Hackathon Vault')
     .addTag('Vault', 'APIs to get information, manage and interact with vaults')
+    .addTag('Webhook', 'APIs sync transaction from webhooks')
     .build();
