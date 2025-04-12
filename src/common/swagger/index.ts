@@ -13,4 +13,6 @@ export const swaggerConfig = new DocumentBuilder()
     .setTitle('Hackathon Vault')
     .setDescription('The Hackathon Vault API')
     .setVersion('1.0')
+    .addTag('Auth', 'APIs to authenticate and authorize users')
+    .addTag('User', 'APIs to get information about the user')
     .build();
