@@ -13,6 +13,10 @@ import { BullModule } from '@nestjs/bull';
 import { AppController } from '@app/app.controller';
 import { AppService } from '@app/app.service';
 import * as configs from '@app/config';
+import { SharedModule } from './modules/shared/shared.module';
+import { AuthModule } from './modules/auth/auth.module';
+import { UserModule } from './modules/user/user.module';
+import { ChainModule } from './modules/chain/chain.module';
 
 @Module({
     imports: [
@@ -30,6 +34,10 @@ import * as configs from '@app/config';
         TypeOrmModule.forRootAsync({ useClass: TypeOrmConfigService }),
         RedisModule.forRootAsync({ useClass: RedisConfigService }),
         BullModule.forRootAsync({ useClass: BullConfigService }),
+        SharedModule,
+        AuthModule,
+        UserModule,
+        ChainModule,
     ],
     controllers: [AppController],
     providers: [AppService],
