@@ -1,0 +1,23 @@
+version: '3.1'
+services:
+    db:
+        image: 'postgres:13'
+        environment:
+            - POSTGRES_DB=hackathon_vault_api
+            - POSTGRES_USER=postgres
+            - POSTGRES_PASSWORD=postgres
+        volumes:
+            - ./data/posgres:/var/lib/postgresql/data
+        ports:
+            - '5432:5432'
+    redis:
+        image: 'redis:alpine'
+        ports:
+            - '6379:6379'
+    app:
+        container_name: hackathon-vault-api
+        image: hackathon.vault.backend
+        volumes:
+            - .env:/app/.env
+        ports:
+            - '3000:3000'
